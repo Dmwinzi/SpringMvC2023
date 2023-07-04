@@ -12,4 +12,6 @@ public interface ContentService {
 
     List<ContentDTO> getall();
 
+    ContentDTO detail(int id);
+
 }

@@ -35,6 +35,10 @@ public class Controller {
          return  ResponseEntity.ok(content);
     }
 
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<ContentDTO> getcontent(@PathVariable int id){
+        return ResponseEntity.ok(contentServiceimpl.detail(id));
+    }
 
     @PostMapping("/create")
     public ResponseEntity<String> addContent(@Valid @RequestBody Content content){

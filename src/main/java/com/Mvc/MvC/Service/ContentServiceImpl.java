@@ -1,6 +1,7 @@
 package com.Mvc.MvC.Service;
 
 import com.Mvc.MvC.DTO.ContentDTO;
+import com.Mvc.MvC.Exceptions.ContentNotFound;
 import com.Mvc.MvC.Model.Content;
 import com.Mvc.MvC.Repository.Repository;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,12 @@ public class ContentServiceImpl implements ContentService{
         }catch (Exception e){
             throw new RuntimeException(e.getMessage().toString());
         }
+    }
+
+    @Override
+    public ContentDTO detail(int id) {
+        Content  content  = repository.findById(id).orElseThrow( () -> new ContentNotFound("Content not found"));
+        return maptoDTO(content);
     }
 
 
