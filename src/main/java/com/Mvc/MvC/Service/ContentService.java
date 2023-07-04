@@ -14,4 +14,8 @@ public interface ContentService {
 
     ContentDTO detail(int id);
 
+    ResponseEntity<String>  updatecontent  (int id,Content content);
+
+    ResponseEntity<String> deletecontent (int id);
+
 }

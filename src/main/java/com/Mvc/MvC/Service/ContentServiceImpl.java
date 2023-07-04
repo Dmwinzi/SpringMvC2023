@@ -27,7 +27,7 @@ public class ContentServiceImpl implements ContentService{
             repository.save(content);
             return ResponseEntity.ok("Saved succesfully");
         }catch (Exception e){
-            return ResponseEntity.ok(e.getMessage().toString());
+            return ResponseEntity.ok("Problem saving content"+e.getMessage().toString());
         }
     }
 
@@ -45,6 +45,35 @@ public class ContentServiceImpl implements ContentService{
     public ContentDTO detail(int id) {
         Content  content  = repository.findById(id).orElseThrow( () -> new ContentNotFound("Content not found"));
         return maptoDTO(content);
+    }
+
+    @Override
+    public ResponseEntity<String> updatecontent(int id,Content content) {
+        Content updatecontent  = repository.findById(id).orElseThrow(() -> new ContentNotFound("Content not found!!"));
+        updatecontent.setTitle(content.getTitle());
+        updatecontent.setDescription(content.getDescription());
+        updatecontent.setStatus(content.getStatus());
+        updatecontent.setContentype(content.getContentype());
+        updatecontent.setDatecreated(content.getDatecreated());
+        updatecontent.setDateupdated(content.getDateupdated());
+        updatecontent.setUrl(content.getUrl());
+        try{
+            repository.save(updatecontent);
+             return ResponseEntity.ok("Content updated succesfully");
+        }catch (Exception e){
+            return ResponseEntity.ok("Problem updating content"+e.getMessage().toString());
+        }
+    }
+
+    @Override
+    public ResponseEntity<String> deletecontent(int id) {
+        try{
+            repository.deleteById(id);
+            return ResponseEntity.ok("Content Deleted Succesfully");
+        }catch (Exception e){
+            return ResponseEntity.ok("Problem deleteing content"+e.getMessage().toString());
+        }
+
     }
 
 

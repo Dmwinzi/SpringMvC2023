@@ -47,13 +47,12 @@ public class Controller {
 
      @PutMapping("/update/{id}")
      public ResponseEntity<String> update(@RequestBody Content content,@PathVariable Integer id){
-
-        return ResponseEntity.ok("Updated Succesfully");
+        return contentServiceimpl.updatecontent(id,content);
      }
 
     @DeleteMapping("/Delete/{id}")
     public ResponseEntity<String> deletecontent (@PathVariable  Integer id){
-        return ResponseEntity.ok("Deleted Succesfully");
+        return contentServiceimpl.deletecontent(id);
     }
 
 
