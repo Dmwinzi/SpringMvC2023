@@ -1,12 +1,16 @@
 package com.Mvc.MvC.Service;
 
 import com.Mvc.MvC.DTO.ContentDTO;
+import com.Mvc.MvC.DTO.ContentResponse;
 import com.Mvc.MvC.Exceptions.ContentNotFound;
 import com.Mvc.MvC.Model.Content;
 import com.Mvc.MvC.Repository.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,10 +36,23 @@ public class ContentServiceImpl implements ContentService{
     }
 
     @Override
-    public List<ContentDTO> getall() {
+    public ContentResponse getall(int pageno, int pagesize) {
         try{
-            List<Content>  contents  = repository.findAll();
-           return contents.stream().map(content -> maptoDTO(content)).collect(Collectors.toList());
+            Pageable pageable  = (Pageable) PageRequest.of(pageno, pagesize);
+            Page<Content> pagedcontent  = repository.findAll((org.springframework.data.domain.Pageable) pageable);
+            List<Content>  contents = pagedcontent.getContent();
+           List<ContentDTO>  contentDTOS  = contents.stream().map(content -> maptoDTO(content)).collect(Collectors.toList());
+
+           ContentResponse contentResponse  = new ContentResponse();
+           contentResponse.setContent(contentDTOS);
+           contentResponse.setPageno(pagedcontent.getNumber());
+           contentResponse.setPagesize(pagedcontent.getSize());
+           contentResponse.setTotalelements(pagedcontent.getTotalElements());
+           contentResponse.setTotalpages(pagedcontent.getTotalPages());
+           contentResponse.setLast(pagedcontent.isLast());
+
+           return contentResponse;
+
         }catch (Exception e){
             throw new RuntimeException(e.getMessage().toString());
         }

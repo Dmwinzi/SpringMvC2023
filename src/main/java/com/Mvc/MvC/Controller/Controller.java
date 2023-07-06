@@ -1,6 +1,7 @@
 package com.Mvc.MvC.Controller;
 
 import com.Mvc.MvC.DTO.ContentDTO;
+import com.Mvc.MvC.DTO.ContentResponse;
 import com.Mvc.MvC.Model.Content;
 import com.Mvc.MvC.Service.ContentServiceImpl;
 import jakarta.validation.Valid;
@@ -30,8 +31,11 @@ public class Controller {
 
 
     @GetMapping("/getall")
-    public ResponseEntity<List<ContentDTO>> getall(){
-         List<ContentDTO> content = contentServiceimpl.getall();
+    public ResponseEntity<ContentResponse> getall(
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pagesize
+    ){
+         ContentResponse content = contentServiceimpl.getall(pageNo, pagesize);
          return  ResponseEntity.ok(content);
     }
 
