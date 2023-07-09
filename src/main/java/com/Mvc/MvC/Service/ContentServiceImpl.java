@@ -38,7 +38,7 @@ public class ContentServiceImpl implements ContentService{
     @Override
     public ContentResponse getall(int pageno, int pagesize) {
         try{
-            Pageable pageable  = (Pageable) PageRequest.of(pageno, pagesize);
+            PageRequest  pageable =  PageRequest.of(pageno, pagesize);
             Page<Content> pagedcontent  = repository.findAll((org.springframework.data.domain.Pageable) pageable);
             List<Content>  contents = pagedcontent.getContent();
            List<ContentDTO>  contentDTOS  = contents.stream().map(content -> maptoDTO(content)).collect(Collectors.toList());

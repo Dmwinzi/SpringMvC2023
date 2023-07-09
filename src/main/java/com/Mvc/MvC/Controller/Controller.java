@@ -33,9 +33,9 @@ public class Controller {
     @GetMapping("/getall")
     public ResponseEntity<ContentResponse> getall(
             @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pagesize
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
     ){
-         ContentResponse content = contentServiceimpl.getall(pageNo, pagesize);
+         ContentResponse content = contentServiceimpl.getall(pageNo, pageSize);
          return  ResponseEntity.ok(content);
     }
 
