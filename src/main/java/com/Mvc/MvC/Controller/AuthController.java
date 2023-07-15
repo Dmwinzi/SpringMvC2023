@@ -1,5 +1,6 @@
 package com.Mvc.MvC.Controller;
 
+import com.Mvc.MvC.DTO.AuthresponseDTO;
 import com.Mvc.MvC.Model.LoginEntity;
 import com.Mvc.MvC.Model.UserEntity;
 import com.Mvc.MvC.Repository.Rolerepository;
@@ -29,7 +30,7 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<String> log(@RequestBody LoginEntity loginEntity){
+    public ResponseEntity<AuthresponseDTO> log(@RequestBody LoginEntity loginEntity){
          return authservice.login(loginEntity);
     }
 

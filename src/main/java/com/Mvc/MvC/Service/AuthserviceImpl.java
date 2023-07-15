@@ -1,10 +1,12 @@
 package com.Mvc.MvC.Service;
 
+import com.Mvc.MvC.DTO.AuthresponseDTO;
 import com.Mvc.MvC.Model.LoginEntity;
 import com.Mvc.MvC.Model.Roles;
 import com.Mvc.MvC.Model.UserEntity;
 import com.Mvc.MvC.Repository.Rolerepository;
 import com.Mvc.MvC.Repository.Userrepository;
+import com.Mvc.MvC.Security.JwtGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,13 +29,14 @@ public class AuthserviceImpl implements AuthService {
 
     private AuthenticationManager authenticationManager;
 
+    private JwtGenerator jwtGenerator;
 
-    @Autowired
-    public AuthserviceImpl(Userrepository userrepository, Rolerepository rolerepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
+    public AuthserviceImpl(Userrepository userrepository, Rolerepository rolerepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtGenerator jwtGenerator) {
         this.userrepository = userrepository;
         this.rolerepository = rolerepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
+        this.jwtGenerator = jwtGenerator;
     }
 
     @Override
@@ -56,10 +59,11 @@ public class AuthserviceImpl implements AuthService {
     }
 
     @Override
-    public ResponseEntity<String> login (LoginEntity loginEntity) {
-       Authentication authentication  =  authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginEntity.getUsername(),loginEntity.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        return ResponseEntity.ok("Signed in Succesfully");
+    public ResponseEntity<AuthresponseDTO> login (LoginEntity loginEntity) {
+           Authentication authentication  =  authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginEntity.getUsername(),loginEntity.getPassword()));
+           SecurityContextHolder.getContext().setAuthentication(authentication);
+           String token  = jwtGenerator.generatetoken(authentication);
+           return ResponseEntity.ok(new AuthresponseDTO(token));
     }
 
 }
