@@ -1,0 +1,24 @@
+
+Question 4 : Access Control - it ensures only authorized users can access specific parts of the system /application
+   Session Management  - By getting the logged in username and passwords we can implement JSON web TOkens to manage sessions securely and ensure proper logout mechanaisms
+
+   Testing  - thorough testing the authentication endpoints using techniques like unit testing to identify vulnerabilities
+
+
+Question 9
+ 
+As a freelance developer before fully diving into a project or rather after getting at least an idea of a clients expectation I first create prototypes of the proposed solution and share them with the clients to ensure they align with the projects direction then  adapting an algorithmic approach to procedurally solve the problem being solved by the solution i am developing.
+
+Question 10
+
+Step 1 : I first understand what the task requires
+
+Step 2 : Research about the different technologies required for the task
+
+Step 3 : Gather Learning resources to gain knowledge on how to use the relevant technologies with the task
+
+Step 4 : Draft a Learning Path and Seclude time to learn the technologies
+
+Step 5 : Project based Practice 
+
+Step 6 : Start building.
